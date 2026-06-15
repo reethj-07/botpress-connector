@@ -60,7 +60,10 @@ class BotpressClient:
         user_id = f"scanner_{uuid.uuid4().hex}"
         data = self._request("POST", "/users", json={"id": user_id, "name": "Security Scanner"})
         user = data.get("user") or {}
-        return str(user.get("id") or user_id), str(data["key"])
+        try:
+            return str(user.get("id") or user_id), str(data["key"])
+        except KeyError as exc:
+            raise ConnectorError("Botpress did not return a user key. Ensure the Webhook ID is valid.") from exc
 
     def create_conversation(self, user_key: str) -> str:
         data = self._request("POST", "/conversations", headers=self._auth(user_key), json={})

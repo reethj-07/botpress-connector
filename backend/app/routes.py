@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from app.config import Settings, get_settings
 from app.connector.scanner import BotpressScanner, redact_webhook_id
+from app.connector.errors import ConnectorError
 from app.schemas import ResourceCreate, ScanRequest
 from app.storage import Store
 
@@ -88,7 +89,10 @@ def scan_resource(
     results = []
     for index, prompt in enumerate(payload.prompts):
         if payload.reset_conversation and index == 0:
-            scanner.reset_conversation()
+            try:
+                scanner.reset_conversation()
+            except ConnectorError as e:
+                raise HTTPException(status_code=400, detail=str(e))
         result = scanner.execute_test(prompt.vulnerability_id, prompt.attack_id, prompt.test_input)
         results.append(result)
     run = store.create_scan_run(resource_id, [prompt.model_dump() for prompt in payload.prompts], results)
