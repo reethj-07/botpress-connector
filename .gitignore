@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+*.db
+*.sqlite3
+.pytest_cache/
+.ruff_cache/
+.tmp/
+node_modules/
+dist/
+frontend/dist/
+backend/static/
+.DS_Store
+
+*.egg-info/
+botpress-connector-e2e.md
