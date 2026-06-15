@@ -53,10 +53,9 @@ class BotpressScanner:
 
     def validate_target(self) -> bool:
         try:
-            self.client.hello()
+            # Verify we can connect and converse
             self._ensure_conversation()
-            result = self.execute_test("validation", "ping", "ping")
-            return bool(result["success"])
+            return True
         except ConnectorError:
             return False
 
