@@ -109,7 +109,7 @@ Integration tests run against a local FastAPI mock Botpress server. The mock imp
 
 Live smoke testing is manual and documented in `README.md` to avoid burning free-tier quota in CI.
 
-## Production hardening
+## Future Improvements & Production Hardening
 
 Production work would include:
 

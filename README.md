@@ -154,6 +154,15 @@ scan = requests.post(
 print(scan.json())
 ```
 
+## Future Improvements (Given More Time)
+
+If I had more than 8 hours for this sprint, I would prioritize the following architectural and UX upgrades:
+- **Server-Sent Events (SSE):** Upgrade the Botpress connector from HTTP polling to SSE for real-time, low-latency bot responses.
+- **Background Task Workers:** Offload the scanning execution to a background queue (e.g., Celery or RQ) to prevent long-running scans from blocking FastAPI HTTP threads.
+- **Secret Management:** Implement robust encryption at rest (like AWS KMS) for the database to securely store Botpress webhook IDs and encryption keys.
+- **Multi-tenant Auth:** Add JWT-based authentication to the React UI and API routes to support multiple users running isolated scans.
+- **Rich Message Parsing:** Enhance the text extractor in the Python connector to fully parse and display Botpress carousel cards, images, and tool-invocation payloads.
+
 ## Live smoke test
 
 1. Create and publish a Botpress bot.
